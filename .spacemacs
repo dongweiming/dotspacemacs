@@ -18,7 +18,6 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     ruby
      nginx
      ;; -------------------------------q---------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -26,7 +25,6 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     better-defaults
      emacs-lisp
      git
      html
@@ -42,15 +40,14 @@ values."
      sql
      rust
      yaml
-     python
+     (python :variables
+             python-shell-interpreter 'ipython3
+             python-auto-set-local-pyvenv-virtualenv nil)
      javascript
      colors
      lua
-     go
+     (go :variables go-tab-width 4)
      osx
-     nginx
-     chinese
-     python
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -63,7 +60,7 @@ values."
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
    dotspacemacs-delete-orphan-packages t)
-  (spacemacs/set-leader-keys "," 'ref-pop-marker-stack)
+  (spacemacs/set-leader-keys "," 'xref-pop-marker-stack)
   (spacemacs/set-leader-keys "." 'anaconda-mode-find-definitions)
   (spacemacs/set-leader-keys ";" 'anaconda-mode-find-assignments)
   (spacemacs/set-leader-keys "g a" 'magit-log-current)
@@ -259,7 +256,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup) nil
+   dotspacemacs-whitespace-cleanup nil)
    )
 
 (defun dotspacemacs/user-init ()
@@ -289,11 +286,14 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (xterm-mouse-mode -1)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  ;(add-hook 'python-mode-hook 'anaconda-mode)
+  (setq python-shell-interpreter "/Users/dongweiming/dae/venv/bin/python")
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   ;(defun dotspacemacs/init-vue-mode ()
   ;  (use-package vue-mode))
   (add-to-list 'auto-mode-alist '("\\.es6\\'" . js-mode))
   ;(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+  ;(add-to-list 'python-shell-extra-pythonpaths "/path/to/the/project")
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -307,19 +307,3 @@ you should place your code here."
     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))))
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
