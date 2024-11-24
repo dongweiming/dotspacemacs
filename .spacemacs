@@ -112,7 +112,7 @@ values."
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '((recents  . 5)(projects . 7))
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
@@ -266,10 +266,13 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-          ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  (setq configuration-layer-elpa-archives
+    '(("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+      ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+      ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+             ("marmalade" . "http://marmalade-repo.org/packages/")
+             ("melpa" . "http://melpa.milkbox.net/packages/")))
   (define-derived-mode anaconda-view-mode special-mode "Anaconda-View")
   (setq-default git-magit-status-fullscreen t)
   (dolist (hook '(css-mode-hook
